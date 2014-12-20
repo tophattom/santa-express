@@ -25,8 +25,8 @@
         
         var flakes = [];
         
-        for (var i = 0; i < 300; i++) {
-            var newFlake = new Snowflake(Math.random() * 400, -20);
+        for (var i = 0; i < 400; i++) {
+            var newFlake = new Snowflake(Math.random() * 400, Math.random() * 300);
             flakes.push(newFlake);
         }
         
