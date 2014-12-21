@@ -30,12 +30,20 @@
         }
         
         var santaVel = new Vector(0, 0, 0);
+        var sled = new Sled(200, 200, 4);
         
-        var lastT = 0;
+        var lastT = 0,
+            leftOverTime = 0,
+            timesteps = 0;
         
         function update(t) {
             var dt = t - lastT;
             lastT = t;
+            
+            dt += leftOverTime;
+            timesteps = Math.floor(dt / 16);
+            leftOverTime = dt - timesteps * 16;
+            
             window.requestAnimationFrame(update);
             
             draw(ctx);
@@ -45,6 +53,10 @@
                 flake.draw(ctx);
             });
             
+            for (var i = 0; i < timesteps; i++) {
+                sled.update(16);
+                sled.draw(ctx);
+            }
         }
         
         function draw(ctx) {
