@@ -30,6 +30,8 @@
             flakes.push(newFlake);
         }
         
+        var santaVel = new Vector(0, 0, 0);
+        
         var lastT = 0;
         
         function update(t) {
@@ -39,7 +41,7 @@
             
             draw(ctx);
             flakes.forEach(function(flake) {
-                flake.update(dt, 0, 400, 300);
+                flake.update(dt, santaVel, 0, 400, 300);
                 flake.draw(ctx);
             });
             

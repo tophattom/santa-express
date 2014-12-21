@@ -10,10 +10,10 @@
         this.sineSpeed = 400 + Math.random() * 1000;
     };
     
-    Snowflake.prototype.update = function(t, minX, maxX, maxY) {
+    Snowflake.prototype.update = function(t, velOffset, minX, maxX, maxY) {
         this.pos.add(this.vel.clone().mul(t / 1000));
         
-        this.vel.set(Math.sin(Date.now() / this.sineSpeed) * this.sineScaler, this.vel.j, 0);
+        this.vel.set(Math.sin(Date.now() / this.sineSpeed) * this.sineScaler, this.vel.j, 0).add(velOffset);
         
         if (this.pos.i < minX) {
             this.pos.i = maxX;
