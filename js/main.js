@@ -39,8 +39,9 @@
             window.requestAnimationFrame(update);
             
             draw(ctx);
+            
             flakes.forEach(function(flake) {
-                flake.update(dt, santaVel, 0, gameArea.width, gameArea.height);
+                flake.update(dt, santaVel, -5, gameArea.width, gameArea.height);
                 flake.draw(ctx);
             });
             
@@ -49,9 +50,6 @@
         function draw(ctx) {
             ctx.fillStyle = '#000026';
             ctx.fillRect(0, 0, gameArea.width, gameArea.height);
-            
-            ctx.fillStyle = '#aa0000';
-            ctx.fillRect(10, 10, 10, 10);
         }
         
         window.requestAnimationFrame(update);

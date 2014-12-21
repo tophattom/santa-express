@@ -13,7 +13,7 @@
     Snowflake.prototype.update = function(t, velOffset, minX, maxX, maxY) {
         this.pos.add(this.vel.clone().mul(t / 1000));
         
-        this.vel.set(Math.sin(Date.now() / this.sineSpeed) * this.sineScaler, this.vel.j, 0).add(velOffset);
+        this.vel.set(Math.sin(Date.now() / this.sineSpeed) * this.sineScaler, this.vel.j, 0).sub(velOffset);
         
         if (this.pos.i < minX) {
             this.pos.i = maxX;
