@@ -9,14 +9,17 @@
         this.turnRate = 0;
         this.speed = 120;
         
-        this.pieceDist = 35
+        this.pieceDist = 18;
         
         for (var i = 0; i < length; i++) {
             var newPiece = {
                 pos: new Vector(x + this.pieceDist * i, y, 0),
                 vel: new Vector(0, 0, 0),
                 dir: new Vector(1, 0, 0),
-                angle: 0
+                angle: 0,
+                
+                width: 15,
+                height: 10
             };
             
             this.pieces.push(newPiece);
@@ -38,7 +41,7 @@
             ctx.translate(piece.pos.i, piece.pos.j);
             ctx.rotate(-piece.angle);
             
-            ctx.fillRect(-15, -10, 30, 20);
+            ctx.fillRect(-piece.width / 2, -piece.height / 2, piece.width, piece.height);
             
             ctx.restore();
         });

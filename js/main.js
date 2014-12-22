@@ -63,9 +63,9 @@
             window.requestAnimationFrame(update);
             
             if (Keyboard.keydown(Keyboard.LEFT_KEY)) {
-                sled.turnRate += 0.03;
+                sled.turnRate += 0.07;
             } else if (Keyboard.keydown(Keyboard.RIGHT_KEY)) {
-                sled.turnRate -= 0.03;
+                sled.turnRate -= 0.07;
             }
             
             draw(ctx);
