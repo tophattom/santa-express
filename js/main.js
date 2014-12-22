@@ -2,34 +2,54 @@
     'use strict';
     
     var config = {
-        width: 800,
-        height: 400,
-        
-        scale: 2,
-        
-        ratio: 2
+        width: 400,
+        height: 200
     };
     
-    var gameArea = {
-        width: config.width / config.scale,
-        height: config.height / config.scale
-    };
+    var container, canvas, ctx;
+    
+    function setupCanvas() {
+        var w = container.offsetWidth,
+            h = container.offsetHeight,
+            m = Math.floor(w / config.width),
+            n = Math.floor(h / config.height),
+            scale = Math.max(Math.min(m, n), 1);
+            
+        var width = config.width * scale,
+            height = config.height * scale;
+            
+        canvas.width = width;
+        canvas.height = height;
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        
+        ctx.imageSmoothingEnabled = false;
+        ctx.mozImageSmoothingEnabled = false;
+        ctx.webkitImageSmoothingEnabled = false;
+        ctx.msImageSmoothingEnabled = false;
+        
+        ctx.scale(scale, scale);
+    }
     
     
     document.addEventListener('DOMContentLoaded', function() {
-        var canvas = document.getElementById('game-canvas'),
-            ctx = canvas.getContext('2d');
+        container = document.getElementById('game-container');
+        canvas = document.createElement('canvas');
+        
+        container.appendChild(canvas);
+        
+        ctx = canvas.getContext('2d');
         
         setupCanvas();
         
         var flakes = [];
         
         for (var i = 0; i < 400; i++) {
-            var newFlake = new Snowflake(Math.random() * gameArea.width, Math.random() * gameArea.height);
+            var newFlake = new Snowflake(Math.random() * config.width, Math.random() * config.height);
             flakes.push(newFlake);
         }
         
-        var santaVel = new Vector(120, 0, 0);
+        var santaVel = new Vector(0, 0, 0);
         var sled = new Sled(200, 200, 4);
         
         var lastT = 0,
@@ -51,7 +71,7 @@
             draw(ctx);
             
             flakes.forEach(function(flake) {
-                flake.update(dt, santaVel, -5, gameArea.width, gameArea.height);
+                flake.update(dt, santaVel, -5, config.width, config.height);
                 flake.draw(ctx);
             });
             
@@ -61,7 +81,7 @@
         
         function draw(ctx) {
             ctx.fillStyle = '#000026';
-            ctx.fillRect(0, 0, gameArea.width, gameArea.height);
+            ctx.fillRect(0, 0, config.width, config.height);
         }
         
         window.requestAnimationFrame(update);
@@ -70,25 +90,4 @@
     });
     
     window.onresize = setupCanvas;
-
-    
-    function setupCanvas() {
-        var canvas = document.getElementById('game-canvas'),
-            ctx = canvas.getContext('2d');
-        
-        canvas.width = window.innerWidth;
-        canvas.height = canvas.width / config.ratio;
-        
-        ctx.imageSmoothingEnabled = false;
-        ctx.mozImageSmoothingEnabled = false;
-        ctx.webkitImageSmoothingEnabled = false;
-        ctx.msImageSmoothingEnabled = false;
-        
-        ctx.scale(config.scale, config.scale);
-        
-        gameArea = {
-            width: canvas.width / config.scale,
-            height: canvas.height / config.scale
-        };
-    }
 })();
