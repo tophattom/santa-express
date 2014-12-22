@@ -29,7 +29,7 @@
             flakes.push(newFlake);
         }
         
-        var santaVel = new Vector(0, 0, 0);
+        var santaVel = new Vector(120, 0, 0);
         var sled = new Sled(200, 200, 4);
         
         var lastT = 0,
@@ -41,6 +41,12 @@
             lastT = t;
             
             window.requestAnimationFrame(update);
+            
+            if (Keyboard.keydown(Keyboard.LEFT_KEY)) {
+                sled.turnRate += 0.03;
+            } else if (Keyboard.keydown(Keyboard.RIGHT_KEY)) {
+                sled.turnRate -= 0.03;
+            }
             
             draw(ctx);
             
@@ -60,13 +66,7 @@
         
         window.requestAnimationFrame(update);
         
-        window.addEventListener('keydown', function(event) {
-            if (event.keyCode === 37) {
-                sled.turnRate += 0.1;
-            } else if (event.keyCode === 39) {
-                sled.turnRate -= 0.1;
-            }
-        });
+        
     });
     
     window.onresize = setupCanvas;

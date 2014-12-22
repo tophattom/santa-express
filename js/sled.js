@@ -7,11 +7,13 @@
         this.pieces = [];
         
         this.turnRate = 0;
-        this.speed = 0;
+        this.speed = 120;
+        
+        this.pieceDist = 35
         
         for (var i = 0; i < length; i++) {
             var newPiece = {
-                pos: new Vector(x + 40 * i, y, 0),
+                pos: new Vector(x + this.pieceDist * i, y, 0),
                 vel: new Vector(0, 0, 0),
                 dir: new Vector(1, 0, 0),
                 angle: 0
@@ -57,12 +59,15 @@
                 leadingPiece = this.pieces[i - 1];
                 
             var lastPos = piece.pos;
-            piece.pos = leadingPiece.pos.clone().add(leadingPiece.dir.clone().mul(40));
+            piece.pos = leadingPiece.pos.clone().add(leadingPiece.dir.clone().mul(this.pieceDist));
             
+            var fii = (this.pieceDist * this.turnRate) / this.speed;
+            
+            piece.angle = firstPiece.angle + fii * i;
             // piece.angle = firstPiece.angle - this.turnRate / (this.pieces.length - 1) * i;
-            // piece.angle = -Math.atan2(lastPos.j - piece.pos.j, lastPos.i - piece.pos.i);
-            piece.angle = leadingPiece.angle + this.turnRate / this.pieces.length + (Math.PI * (i % 2));
-            piece.dir.set(-Math.cos(piece.angle), Math.sin(piece.angle), 0);
+            // piece.angle = -Math.atan2(lastPos.j - piece.pos.j, lastPos.i - piece.pos.i) + Math.PI;
+            // piece.angle = leadingPiece.angle + this.turnRate / this.pieces.length;
+            piece.dir.set(Math.cos(piece.angle), -Math.sin(piece.angle), 0);
         }
     };
     
