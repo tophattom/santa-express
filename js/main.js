@@ -40,10 +40,6 @@
             var dt = t - lastT;
             lastT = t;
             
-            dt += leftOverTime;
-            timesteps = Math.floor(dt / 16);
-            leftOverTime = dt - timesteps * 16;
-            
             window.requestAnimationFrame(update);
             
             draw(ctx);
@@ -53,10 +49,8 @@
                 flake.draw(ctx);
             });
             
-            for (var i = 0; i < timesteps; i++) {
-                sled.update(16);
-                sled.draw(ctx);
-            }
+            sled.update(dt);
+            sled.draw(ctx);
         }
         
         function draw(ctx) {
@@ -65,9 +59,18 @@
         }
         
         window.requestAnimationFrame(update);
+        
+        window.addEventListener('keydown', function(event) {
+            if (event.keyCode === 37) {
+                sled.turnRate += 0.1;
+            } else if (event.keyCode === 39) {
+                sled.turnRate -= 0.1;
+            }
+        });
     });
     
     window.onresize = setupCanvas;
+
     
     function setupCanvas() {
         var canvas = document.getElementById('game-canvas'),
