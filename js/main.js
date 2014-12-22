@@ -50,7 +50,7 @@
         }
         
         var santaVel = new Vector(0, 0, 0);
-        var sled = new Sled(200, 200, 4);
+        var sled = new Sled(50, 100, 4);
         
         var lastT = 0,
             leftOverTime = 0,
