@@ -6,6 +6,8 @@
         height: 200
     };
     
+    var camera = new Camera(0, 0, config.width, config.height);
+    
     var container, canvas, ctx;
     
     function setupCanvas() {
@@ -71,12 +73,14 @@
             draw(ctx);
             
             flakes.forEach(function(flake) {
-                flake.update(dt, sled.pieces[0].vel, -5, config.width, -5, config.height);
+                flake.update(dt, sled.pieces[0].vel.clone().mul(1.5), -5, config.width, -5, config.height);
                 flake.draw(ctx);
             });
             
             sled.update(dt);
-            sled.draw(ctx);
+            
+            camera.setPosition(sled.pieces[0].pos.i + 100, 100);
+            sled.draw(ctx, camera);
         }
         
         function draw(ctx) {

@@ -7,7 +7,7 @@
         this.pieces = [];
         
         this.turnRate = 0;
-        this.speed = 100;
+        this.speed = 120;
         
         this.pieceDist = 18;
         
@@ -26,7 +26,7 @@
         }
     };
     
-    Sled.prototype.draw = function (ctx) {
+    Sled.prototype.draw = function (ctx, camera) {
         ctx.fillStyle = '#ff0000';
         ctx.strokeStyle = '#00ff00';
         
@@ -36,9 +36,12 @@
             } else {
                 ctx.fillStyle = '#ff0000';
             }
+            
+            var screenX = camera.getScreenX(piece.pos.i),
+                screenY = camera.getScreenY(piece.pos.j);
             // var angle = Math.atan2(piece.lastPos.j - piece.pos.j, piece.lastPos.i - piece.pos.i);
             ctx.save();
-            ctx.translate(piece.pos.i, piece.pos.j);
+            ctx.translate(screenX, screenY);
             ctx.rotate(-piece.angle);
             
             ctx.fillRect(-piece.width / 2, -piece.height / 2, piece.width, piece.height);

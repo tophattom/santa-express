@@ -30,6 +30,7 @@
     Snowflake.prototype.draw = function (ctx) {
         var alpha = 0.8 / this.pos.k;
         ctx.fillStyle = 'rgba(255, 255, 255, ' + alpha + ')';
+        // ctx.fillStyle = '#ffffff';
         
         ctx.fillRect(this.pos.i, this.pos.j, 3 / this.pos.k, 3 / this.pos.k);
     };
