@@ -7,7 +7,7 @@
         this.pieces = [];
         
         this.turnRate = 0;
-        this.speed = 120;
+        this.speed = 100;
         
         this.pieceDist = 18;
         

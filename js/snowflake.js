@@ -10,10 +10,9 @@
         this.sineSpeed = 400 + Math.random() * 1000;
     };
     
-    Snowflake.prototype.update = function(t, velOffset, minX, maxX, maxY) {
-        this.pos.add(this.vel.clone().mul(t / 1000));
-        
-        this.vel.set(Math.sin(Date.now() / this.sineSpeed) * this.sineScaler, this.vel.j, 0).sub(velOffset);
+    Snowflake.prototype.update = function(t, velOffset, minX, maxX, minY, maxY) {
+        var tmpVel = this.vel.set(Math.sin(Date.now() / this.sineSpeed) * this.sineScaler, this.vel.j, 0).clone().sub(velOffset);
+        this.pos.add(tmpVel.mul(t / 1000));
         
         if (this.pos.i < minX) {
             this.pos.i = maxX;
@@ -21,8 +20,10 @@
             this.pos.i = minX;
         }
         
-        if (this.pos.j > maxY) {
-            this.pos.set(minX + Math.random() * (maxX - minX), -10, 1 + Math.random() * 2);
+        if (this.pos.j < minY) {
+            this.pos.set(minX + Math.random() * (maxX - minX), maxY, 1 + Math.random() * 2);
+        } else if (this.pos.j > maxY) {
+            this.pos.set(minX + Math.random() * (maxX - minX), minY, 1 + Math.random() * 2);
         }
     };
     

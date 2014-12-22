@@ -71,7 +71,7 @@
             draw(ctx);
             
             flakes.forEach(function(flake) {
-                flake.update(dt, santaVel, -5, config.width, config.height);
+                flake.update(dt, sled.pieces[0].vel, -5, config.width, -5, config.height);
                 flake.draw(ctx);
             });
             
