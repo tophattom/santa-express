@@ -3,13 +3,20 @@
     
     var HORIZONTAL = new Vector(1, 0, 0);
     
+    var reindeerImg = new Image(),
+        sledSprite = new AnimatedSprite('img/sled-anim.png', 20, 15, 4, 250);
+    
+    reindeerImg.src = 'img/reindeer-anim.png';
+    
+    // var reindeerSprite = new AnimatedSprite(reindeerImg, 20, 15, 4, 48);
+    
     var Sled = function(x, y, length) {
         this.pieces = [];
         
         this.turnRate = 0;
         this.speed = 120;
         
-        this.pieceDist = 18;
+        this.pieceDist = 20;
         
         for (var i = 0; i < length; i++) {
             var newPiece = {
@@ -18,12 +25,18 @@
                 dir: new Vector(1, 0, 0),
                 angle: 0,
                 
-                width: 15,
-                height: 10
+                width: 20,
+                height: 15,
+                
+                sprite: new AnimatedSprite(reindeerImg, 20, 15, 4, 130, i % length)
             };
+            
+            newPiece.sprite.start();
             
             this.pieces.push(newPiece);
         }
+        
+        sledSprite.start();
     };
     
     Sled.prototype.draw = function (ctx, camera) {
@@ -44,7 +57,14 @@
             ctx.translate(screenX, screenY);
             ctx.rotate(-piece.angle);
             
-            ctx.fillRect(-piece.width / 2, -piece.height / 2, piece.width, piece.height);
+            // ctx.fillRect(-piece.width / 2, -piece.height / 2, piece.width, piece.height);
+            if (index === 0) {
+                sledSprite.draw(ctx, 0, -piece.height / 2);    
+            } else {
+                // ctx.drawImage(reindeerImg, 0, -piece.height / 2);
+                piece.sprite.draw(ctx, 0, -piece.height / 2);
+            }
+            
             
             ctx.restore();
         });
